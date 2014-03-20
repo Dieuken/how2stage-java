@@ -31,9 +31,27 @@ public class StageAdministrators
     
     public void addStageAdministrator(StageAdministrator stageadmin)
     {
+        System.out.println("test:" + " " + stageadmin.getLognaam() +" " + stageadmin.getNaam() + " " + stageadmin.getPasswoord());
+        
         if(stageadmin.getLognaam() == null || stageadmin.getLognaam().trim().length() < 8)
         {
+            System.out.println("logon is leeg");
             
         }
+        stageadmin.setLognaam(stageadmin.getLognaam().trim());
+        
+        /*if (em.find(StageAdministrator.class, stageadmin.getLognaam()) != null) 
+        {
+            System.out.println("logon naam bestaat reeds");
+        }*/
+        
+        if (stageadmin.getPasswoord() == null || stageadmin.getPasswoord().trim().length() < 8) {
+            System.out.println("passwoord is leeg");
+        }
+        
+        stageadmin.setPasswoord(stageadmin.getPasswoord().trim());
+        
+        em.persist(stageadmin);
+        
     }
 }
