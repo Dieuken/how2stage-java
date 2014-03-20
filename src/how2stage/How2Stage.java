@@ -6,7 +6,14 @@
 
 package how2stage;
 
+import domein.Hash;
 import domein.StageAdministrator;
+import java.awt.TextArea;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +37,7 @@ public class How2Stage extends Application {
     public TextField pass;
     public TextField naam;
     
+    
     @Override
     public void start(Stage primaryStage) {
         
@@ -50,12 +58,12 @@ public class How2Stage extends Application {
             public void handle(ActionEvent event) {
                 StageAdministrator stageadmin = new StageAdministrator();
                 StageAdministrators stage = new StageAdministrators();
-                System.out.println(logon.getText() + " " + pass.getText() + " " + naam.getText());
+                
                 stageadmin.setLognaam(logon.getText());
                 stageadmin.setPasswoord(pass.getText());
                 stageadmin.setNaam(naam.getText());
-                System.out.println("test:" + " " + stageadmin.getLognaam() +" " + stageadmin.getNaam() + " " + stageadmin.getPasswoord());
-                stage.addStageAdministrator(stageadmin);
+                
+                
                 
             }
         });
@@ -70,8 +78,10 @@ public class How2Stage extends Application {
         grid.add(lblnaam, 0, 2);
         grid.add(naam, 1, 2);
         grid.add(btn, 0, 3);
+        
         BorderPane root = new BorderPane();
         root.setCenter(grid);
+       
         
         Scene scene = new Scene(root, 800, 800);
         

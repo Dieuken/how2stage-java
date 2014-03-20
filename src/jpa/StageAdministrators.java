@@ -12,6 +12,8 @@ import javax.persistence.PersistenceContext;
 import domein.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
@@ -20,19 +22,27 @@ import javax.persistence.TypedQuery;
  */
 public class StageAdministrators 
 {
-    @PersistenceContext
-    private EntityManager em;
+    private EMer emer = new EMer();
     
     public List<StageAdministrator> alleStageAdmins()
     {
+        
+        emer.begin();
+        EntityManager em = emer.getEm();
         TypedQuery<StageAdministrator> queryFindAll = em.createNamedQuery("StageAdministrator.findAll", StageAdministrator.class);
-        return queryFindAll.getResultList();
+        List<StageAdministrator> results = queryFindAll.getResultList();
+        
+        emer.commit();
+        emer.sluit();
+        
+        return results;
     }
     
     public void addStageAdministrator(StageAdministrator stageadmin)
     {
         System.out.println("test:" + " " + stageadmin.getLognaam() +" " + stageadmin.getNaam() + " " + stageadmin.getPasswoord());
-        
+        emer.begin();
+        EntityManager em = emer.getEm();
         if(stageadmin.getLognaam() == null || stageadmin.getLognaam().trim().length() < 8)
         {
             System.out.println("logon is leeg");
@@ -53,5 +63,7 @@ public class StageAdministrators
         
         em.persist(stageadmin);
         
+        emer.commit();
+        emer.sluit();
     }
 }
