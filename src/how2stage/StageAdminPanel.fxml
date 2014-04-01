@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <BorderPane prefHeight="700.0" prefWidth="600.0">
+      <bottom>
+        <ToolBar>
+          <items>
+            <Button mnemonicParsing="false" text="Accept" />
+            <Button mnemonicParsing="false" text="Decline" />
+          </items>
+        </ToolBar>
+      </bottom>
+      <center>
+        <GridPane>
+          <children>
+            <TableView prefHeight="520.0" prefWidth="600.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Titel" />
+                <TableColumn prefWidth="75.0" text="omschrijving" />
+                <TableColumn prefWidth="75.0" text="specialisatie" />
+                <TableColumn prefWidth="75.0" text="Aantal Studenten" />
+                <TableColumn prefWidth="75.0" text="Mentor Naam" />
+              </columns>
+            </TableView>
+            <Label text="Indien u niet akkoord bent met de geselecteerde stage of stages noteer de rede hieronder" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextArea prefHeight="77.0" prefWidth="600.0" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" minHeight="10.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </center>
+      <top>
+        <MenuBar>
+          <menus>
+            <Menu mnemonicParsing="false" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Gebruiker">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Log Out" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>
