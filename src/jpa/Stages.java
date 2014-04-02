@@ -8,6 +8,7 @@ package jpa;
 
 import domein.Stage;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -23,7 +24,7 @@ public class Stages
         List<Stage> results = queryFindAll.getResultList();
         
         emer.commit();
-        emer.sluit();
+       
         
         return results;
         
@@ -36,6 +37,21 @@ public class Stages
         
         em.persist(stage);
         
+        emer.commit();
+        emer.sluit();
+    }
+    
+    public void changeStages(Stage stage)
+    {
+        emer.begin();
+        EntityManager em = emer.getEm();
+        Stage s = em.find(Stage.class, stage.getStagesId());
+        s.setTitel(stage.getTitel());
+        s.setOmschrijving(stage.getOmschrijving());
+        s.setSpecialisatie(stage.getSpecialisatie());
+        s.setAantalStudenten(stage.getAantalStudenten());
+        s.setMentorNaam(stage.getMentorNaam());
+        s.setStageStatus(stage.getStageStatus());
         emer.commit();
         emer.sluit();
     }
