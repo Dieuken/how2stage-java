@@ -32,15 +32,14 @@ public class Stage {
     private String titel;
     private String omschrijving;
     private String specialisatie;
-    private String aantalStudenten;
+    private int aantalStudenten;
     private String mentorNaam;
     private String stageStatus;
 
     public Stage() {
     }
 
-    public Stage(int stagesId, String titel, String omschrijving, String specialisatie, String aantalStudenten, String mentorNaam, String stageStatus) {
-        this.stagesId = stagesId;
+    public Stage(String titel, String omschrijving, String specialisatie, int aantalStudenten, String mentorNaam, String stageStatus) {
         this.titel = titel;
         this.omschrijving = omschrijving;
         this.specialisatie = specialisatie;
@@ -65,7 +64,7 @@ public class Stage {
         return specialisatie;
     }
 
-    public String getAantalStudenten() {
+    public int getAantalStudenten() {
         return aantalStudenten;
     }
 
@@ -93,7 +92,7 @@ public class Stage {
         this.specialisatie = specialisatie;
     }
 
-    public void setAantalStudenten(String aantalStudenten) {
+    public void setAantalStudenten(int aantalStudenten) {
         this.aantalStudenten = aantalStudenten;
     }
 

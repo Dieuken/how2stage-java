@@ -7,7 +7,6 @@
 package jpa;
 
 import domein.Stage;
-import domein.StageAdministrator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

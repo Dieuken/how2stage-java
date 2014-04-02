@@ -6,6 +6,7 @@
 
 package how2stage;
 
+import domein.StagesToevoegen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -70,7 +71,17 @@ public class PaneStageAdmin extends BorderPane
                 
             }
         });
-        toolbar.getItems().addAll(btnAccept, btnDecline);
+        Button btnStage = new Button("Stage Toevoegen");
+        btnStage.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) 
+            {
+                StagesToevoegen s = new StagesToevoegen();
+                s.Toevoegen();
+            }
+        });
+        toolbar.getItems().addAll(btnAccept, btnDecline, btnStage);
         
         this.setBottom(toolbar);
     }
