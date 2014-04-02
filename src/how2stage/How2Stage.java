@@ -25,6 +25,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import jpa.StageAdministrators;
@@ -43,9 +44,9 @@ public class How2Stage extends Application {
     @Override
     public void start(Stage primaryStage) {
         //BorderPane root = new BorderPane();
-        Root start = new Root();
-        scene = new Scene(start, 200, 200);
-        
+        Pane pane = new Pane();
+        scene = new Scene(pane,800, 800);
+        scene.setRoot(new Root(scene));
         /*Label lbllogon = new Label("logon");
         Label lblpass = new Label("passwoord");
         lbluit = new Label();

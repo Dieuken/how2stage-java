@@ -29,14 +29,14 @@ public class Root extends BorderPane
     public TextField logon;
     public PasswordField pass;
     public Label lbluit;
+    private Scene root;
     
     
-    public Root(){
+    public Root(Scene scene){
         Label lbllogon = new Label("logon");
         Label lblpass = new Label("passwoord");
         lbluit = new Label();
-        
-        
+        root = scene;
         logon = new TextField();
         pass = new PasswordField();
        
@@ -49,15 +49,17 @@ public class Root extends BorderPane
             public void handle(ActionEvent event) {
                 StageAdministrator stageadmin = new StageAdministrator();
                 StageAdminCheck stageAdminCheck = new StageAdminCheck();
+                
                 Hash hash = new Hash();
                
-                stageadmin.setLognaam(logon.getText());
+                stageadmin.setLognaam(logon.getText().toLowerCase().trim());
                 stageadmin.setPasswoord(hash.encrypt(pass.getText()));
-                System.out.println(hash.encrypt(pass.getText()));
+                
                 
                 if(stageAdminCheck.Check(stageadmin) == true)
                 {
-                    System.out.println("log in geslaagd");
+                    root.setRoot(new PaneStageAdmin(root));
+                    
                 }
                 else{
                     lbluit.setText("Gebruikersnaam of Paswoord onjuist");
@@ -76,7 +78,7 @@ public class Root extends BorderPane
         grid.add(logon, 1, 0);
         grid.add(lblpass, 0, 1);
         grid.add(pass, 1, 1);
-        grid.add(lbluit, 1, 2);
+        grid.add(lbluit, 0, 2);
         grid.add(btn, 1, 3);
        
         
