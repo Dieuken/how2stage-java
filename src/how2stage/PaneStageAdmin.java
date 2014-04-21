@@ -32,13 +32,13 @@ import jpa.Stages;
 
 public class PaneStageAdmin extends BorderPane
 {
-    public Scene root;
+    
     public TableView<Stage> tblStages = new TableView<Stage>();
     public String emailadress = new String("Stefdieu2@gmail.com");
-    public PaneStageAdmin(Scene scene)
+    public PaneStageAdmin()
     {
         
-        root = scene;
+        
         //Aanmaken van TableView en toevoegen van kolommen aan deze 
         
         tblStages.setEditable(false);
@@ -50,10 +50,12 @@ public class PaneStageAdmin extends BorderPane
         tbcTitel.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("Titel"));
         TableColumn tbcOmschrijving = new TableColumn("Omschrijving");
+        tbcOmschrijving.setMinWidth(110);
         tbcOmschrijving.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("Omschrijving"));
         tbcOmschrijving.setMinWidth(200);
         TableColumn tbcSpecialisatie = new TableColumn("Specialisatie");
+        tbcSpecialisatie.setMinWidth(110);
         tbcSpecialisatie.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("Specialisatie"));
         TableColumn tbcAantalStudenten = new TableColumn("Aantal Studenten");
@@ -65,6 +67,7 @@ public class PaneStageAdmin extends BorderPane
         tbcMentorNaam.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("mentorNaam"));
         TableColumn tbcStatus = new TableColumn("Status");
+        tbcStatus.setMinWidth(110);
         tbcStatus.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("stageStatus"));
         tblStages.getColumns().addAll(tbcStageId, tbcTitel, tbcOmschrijving, tbcSpecialisatie, tbcAantalStudenten, tbcMentorNaam, tbcStatus);
@@ -80,7 +83,10 @@ public class PaneStageAdmin extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                root.setRoot(new Root(root));
+                Root root = new Root();
+                PaneStageAdmin.this.getScene().setRoot(root);
+                root.getScene().getWindow().sizeToScene();
+                root.getScene().getWindow().centerOnScreen();
             }
         });
         
@@ -105,7 +111,7 @@ public class PaneStageAdmin extends BorderPane
                 getStages();
             }
         });
-        Button btnWijsAf = new Button("Afwijzen");
+        Button btnWijsAf = new Button("Keur Af");
         btnWijsAf.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -120,17 +126,8 @@ public class PaneStageAdmin extends BorderPane
                 getStages();
             }
         });
-        Button btnStage = new Button("Stage Toevoegen");
-        btnStage.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) 
-            {
-                StagesToevoegen s = new StagesToevoegen();
-                s.Toevoegen();
-            }
-        });
-        toolbar.getItems().addAll(btnKeurGoed, btnWijsAf, btnStage);
+        
+        toolbar.getItems().addAll(btnKeurGoed, btnWijsAf);
         
         this.setBottom(toolbar);
     }

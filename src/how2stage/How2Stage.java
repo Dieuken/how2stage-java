@@ -43,65 +43,13 @@ public class How2Stage extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        //BorderPane root = new BorderPane();
-        Pane pane = new Pane();
-        scene = new Scene(pane,800, 800);
-        scene.setRoot(new Root(scene));
-        /*Label lbllogon = new Label("logon");
-        Label lblpass = new Label("passwoord");
-        lbluit = new Label();
         
         
-        logon = new TextField();
-        pass = new PasswordField();
-       
-        
-        Button btn = new Button();
-        btn.setText("post");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                StageAdministrator stageadmin = new StageAdministrator();
-                StageAdminCheck stageAdminCheck = new StageAdminCheck();
-                Hash hash = new Hash();
-                
-                stageadmin.setLognaam(logon.getText());
-                stageadmin.setPasswoord(hash.encrypt(pass.getText()));
-                System.out.println(hash.encrypt(pass.getText()));
-                if(stageAdminCheck.Check(stageadmin) == true)
-                {
-                    System.out.println("log in geslaagd");
-                }
-                else{
-                    lbluit.setText("Gebruikersnaam of Paswoord onjuist");
-                    
-                }
-                
-                
-                
-            }
-        });
-        
-        GridPane grid = new GridPane();
-        grid.setHgap(5);
-        grid.setVgap(5);
-        grid.add(lbllogon, 0, 0);
-        grid.add(logon, 1, 0);
-        grid.add(lblpass, 0, 1);
-        grid.add(pass, 1, 1);
-        grid.add(lbluit, 1, 2);
-        grid.add(btn, 1, 3);
-       
-        
-       
-        root.setCenter(grid);
-       */
-        
-        
+        scene = new Scene(new Root());
         
         primaryStage.setTitle("How2Stage");
         primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 

@@ -11,6 +11,7 @@ import domein.StageAdminCheck;
 import domein.StageAdministrator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,20 +30,21 @@ public class Root extends BorderPane
     public TextField logon;
     public PasswordField pass;
     public Label lbluit;
-    private Scene root;
     
     
-    public Root(Scene scene){
-        Label lbllogon = new Label("logon");
-        Label lblpass = new Label("passwoord");
+    
+    public Root(){
+        Label lbllogon = new Label("Logon");
+        Label lblpass = new Label("Passwoord");
         lbluit = new Label();
-        root = scene;
+        
         logon = new TextField();
         pass = new PasswordField();
        
         
         Button btn = new Button();
-        btn.setText("post");
+        btn.setText("Log In");
+        btn.setDefaultButton(true);
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -58,7 +60,15 @@ public class Root extends BorderPane
                 
                 if(stageAdminCheck.Check(stageadmin) == true)
                 {
-                    root.setRoot(new PaneStageAdmin(root));
+                   // Root.this.getScene().getWindow().setHeight(800);
+                    //Root.this.getScene().getWindow().setWidth(800);
+                    
+                    PaneStageAdmin pane = new PaneStageAdmin();
+                    Root.this.getScene().setRoot(pane);
+                    pane.getScene().getWindow().sizeToScene();
+                    pane.getScene().getWindow().centerOnScreen();
+                    
+                    
                     
                 }
                 else{
@@ -72,13 +82,14 @@ public class Root extends BorderPane
         });
         
         GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10));
         grid.setHgap(5);
         grid.setVgap(5);
         grid.add(lbllogon, 0, 0);
         grid.add(logon, 1, 0);
         grid.add(lblpass, 0, 1);
         grid.add(pass, 1, 1);
-        grid.add(lbluit, 0, 2);
+        grid.add(lbluit, 0, 2, 2, 1);
         grid.add(btn, 1, 3);
        
         
