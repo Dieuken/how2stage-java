@@ -1,0 +1,3 @@
+Titel: programmeur
+Omschrijving: Het maken en beheren van android applicaties voor het Bedrijf
+Specialisatie: android developing

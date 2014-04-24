@@ -38,6 +38,7 @@ public class StageAdministrators
         return results;
     }
     
+    
     public void addStageAdministrator(StageAdministrator stageadmin)
     {
         System.out.println("test:" + " " + stageadmin.getLognaam() +" " + stageadmin.getNaam() + " " + stageadmin.getPasswoord());

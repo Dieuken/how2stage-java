@@ -9,6 +9,7 @@ package how2stage;
 import domein.Hash;
 import domein.StageAdminCheck;
 import domein.StageAdministrator;
+import domein.StagesToevoegen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -34,6 +35,9 @@ public class Root extends BorderPane
     
     
     public Root(){
+        
+        /*StagesToevoegen stagetoevoegen = new StagesToevoegen();
+        stagetoevoegen.Toevoegen();*/
         Label lbllogon = new Label("Logon");
         Label lblpass = new Label("Passwoord");
         lbluit = new Label();
@@ -56,7 +60,7 @@ public class Root extends BorderPane
                
                 stageadmin.setLognaam(logon.getText().toLowerCase().trim());
                 stageadmin.setPasswoord(hash.encrypt(pass.getText()));
-                
+                System.out.println(stageadmin.getPasswoord());
                 
                 if(stageAdminCheck.Check(stageadmin) == true)
                 {

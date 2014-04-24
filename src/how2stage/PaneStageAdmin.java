@@ -9,6 +9,7 @@ package how2stage;
 import domein.Email;
 import domein.Stage;
 import domein.StagesToevoegen;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -20,12 +21,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Callback;
 import javax.swing.JOptionPane;
 import jpa.Stages;
 
@@ -42,6 +46,9 @@ public class PaneStageAdmin extends BorderPane
         //Aanmaken van TableView en toevoegen van kolommen aan deze 
         
         tblStages.setEditable(false);
+        
+        
+        
         TableColumn tbcStageId = new TableColumn();
         tbcStageId.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("StageId"));
@@ -74,6 +81,21 @@ public class PaneStageAdmin extends BorderPane
         
         this.setCenter(tblStages);
         getStages();
+        
+        tblStages.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount()>1) {
+                    Stage s = new Stage();
+                    s = tblStages.getSelectionModel().getSelectedItem();
+                    PaneStageInfo psi = new PaneStageInfo(s);
+                    PaneStageAdmin.this.getScene().setRoot(psi);
+                }
+            }
+            });
+        
+        
+        
         //het aanmaken van een MenuBar met menus
         MenuBar mubMenuBar = new MenuBar();
         Menu menAccount = new Menu("Account");

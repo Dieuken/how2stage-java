@@ -25,7 +25,7 @@ public class StageAdminCheck
         for(StageAdministrator s : dbList)
         {
             
-            System.out.println(s.getLognaam() + " " + s.getPasswoord());
+            
             
             if(s.getLognaam().equals(stageadmin.getLognaam()) == true && s.getPasswoord().equals(stageadmin.getPasswoord()) == true)
             {

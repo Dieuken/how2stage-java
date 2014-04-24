@@ -20,6 +20,7 @@ public class StageBegeleider
     @Id
     private String lognaam;
     private String passwoord;
+    
 
     public StageBegeleider() {
     }

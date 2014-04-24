@@ -36,20 +36,20 @@ public class Bedrijf
     private String bedrijfAdress;
     private String bedrijfEmail;
     private String bedrijfbereikbaarheid;
-    @OneToMany
+    @OneToMany(mappedBy ="b")
     private List<Stage> stagelist;
 
     public Bedrijf() {
     }
 
-    public Bedrijf(int bedrijfId, String bedrijfNaam, String bedrijfContact, String bedrijfAdress, String bedrijfEmail, String bedrijfbereikbaarheid, List<Stage> stagelist) {
-        this.bedrijfId = bedrijfId;
+    public Bedrijf(String bedrijfNaam, String bedrijfContact, String bedrijfAdress, String bedrijfEmail, String bedrijfbereikbaarheid) {
+        
         this.bedrijfNaam = bedrijfNaam;
         this.bedrijfContact = bedrijfContact;
         this.bedrijfAdress = bedrijfAdress;
         this.bedrijfEmail = bedrijfEmail;
         this.bedrijfbereikbaarheid = bedrijfbereikbaarheid;
-        this.stagelist = stagelist;
+        
     }
 
     public int getBedrijfId() {
