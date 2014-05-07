@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
 
 
@@ -23,11 +24,13 @@ public class WordDoc
         
         
         try {
-              File dir = new File("C:\\Users\\Shmoopsy\\Documents\\StageContracten");
+              FileChooser fc = new FileChooser();
+              
+              File dir = new File("C:\\Users\\Stef\\Documents\\StageContracten");
               dir.mkdir();
               String naam = JOptionPane.showInputDialog("Geef de naam voor het document" ); ;
               naam = naam + ".txt";
-              String document = new String();
+              //File file = fc.showOpenDialog(stage);
 	      File file = new File(dir, naam);
               
 	      if (file.createNewFile()){

@@ -49,7 +49,8 @@ public class How2Stage extends Application {
         
         primaryStage.setTitle("How2Stage");
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
+        primaryStage.setWidth(300);
+        primaryStage.setHeight(300);
         primaryStage.show();
     }
 

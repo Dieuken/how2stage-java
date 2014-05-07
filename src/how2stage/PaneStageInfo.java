@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ChoiceBoxBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
@@ -41,7 +42,8 @@ public class PaneStageInfo extends BorderPane
     private Label stageStatus = new Label();
     private Label bedrijfNaam = new Label();
     private Label begeleider = new Label();
-    private ChoiceBox begeleiders = new ChoiceBox();
+    private ChoiceBox<StageBegeleider> begeleiders = new ChoiceBox<StageBegeleider>();
+                    
     private TextField beginperiode = new TextField();
     private TextField eindperiode = new TextField();
     public String emailadress = new String("Stefdieu2@gmail.com");
@@ -60,6 +62,7 @@ public class PaneStageInfo extends BorderPane
         getIndex();
         setUp();
         
+        StageBegeleider sb;
         
         Label lbltitel = new Label("Titel");
         Label lblomschrijving = new Label("Omschrijving");
@@ -92,9 +95,9 @@ public class PaneStageInfo extends BorderPane
         grid.add(lblbedrijfnaam, 0, 6);
         grid.add(bedrijfNaam, 1, 6);
         grid.add(lblbegeleider, 0, 7);
-        //grid.add(begeleider, 1, 7);
+        grid.add(begeleider, 1, 7);
         grid.add(lblbegeleiders, 0, 8);
-        //grid.add(begeleiders, 1 , 8);
+        grid.add(begeleiders, 1 , 8);
         grid.add(lblbeginperiode, 0, 9);
         grid.add(beginperiode, 1, 9);
         grid.add(lbleindperiode, 0, 10);
@@ -109,8 +112,10 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                if(stagelijst.get(index -1) != null){
-                    stage = stagelijst.get(index -1);
+                
+                if(index >0){
+                    index--;
+                    stage = stagelijst.get(index);
                     setUp();
                 }
             }
@@ -147,9 +152,11 @@ public class PaneStageInfo extends BorderPane
             @Override
             public void handle(ActionEvent event) {
                 Stages s = new Stages();
+                stage.setEffectieveBegeleider(begeleiders.getSelectionModel().getSelectedItem());
                 stage.setBeginPeriode(beginperiode.getText());
                 stage.setEindPeriode(eindperiode.getText());
                 s.changeStages(stage);
+                setUp();
             }
         });
         
@@ -173,8 +180,9 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
+                index++;
                 if(stagelijst.size() > index){
-                    index++;
+                    
                     stage = stagelijst.get(index);
                     System.out.println(stage.getStagesId());
                     setUp();
@@ -194,7 +202,7 @@ public class PaneStageInfo extends BorderPane
             }
         });
         
-        toolbar.getItems().addAll(btnVorige, btnKeurGoed, btnDoc, btnSave, btnWijsAf, btnVolgende);
+        toolbar.getItems().addAll(btnVorige, btnKeurGoed, btnDoc, btnSave, btnWijsAf, btnVolgende, btnTerug);
         
         this.setBottom(toolbar);
     }
@@ -219,22 +227,20 @@ public class PaneStageInfo extends BorderPane
         stageStatus.setText(stage.getStageStatus());
         bedrijfNaam.setText(stage.getB().getBedrijfNaam());
         beginperiode.setText(stage.getBeginPeriode());
-        beginperiode.setText(stage.getEindPeriode());
-       /*if(stage.getEffectieveBegeleider().equals(null))
+        eindperiode.setText(stage.getEindPeriode());
+       if(stage.getEffectieveBegeleider() == null)
         {
             begeleider.setText("");
         }
         else{
             
             begeleider.setText(stage.getEffectieveBegeleider().getNaam());
-        }*/
-        List<StageBegeleider> stageblijst = new ArrayList();
-        stageblijst = stage.getMogelijkeBegeleiderLijst();
-        ObservableList os = FXCollections.observableList(stagelijst);
-        /*if(stageblijst.isEmpty())
-        {
-            begeleiders.setItems(os);
-        }*/
+        }
+        List<StageBegeleider> stageblijst = stage.getMogelijkeBegeleiderLijst();
+        ObservableList os = FXCollections.observableList(stageblijst);
+        begeleiders.setItems(os);
+            
+        
     }
     public void getIndex()
     {

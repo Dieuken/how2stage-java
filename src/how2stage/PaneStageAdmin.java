@@ -9,6 +9,7 @@ package how2stage;
 import domein.Email;
 import domein.Stage;
 import domein.StagesToevoegen;
+import domein.WordDoc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -46,8 +48,7 @@ public class PaneStageAdmin extends BorderPane
         //Aanmaken van TableView en toevoegen van kolommen aan deze 
         
         tblStages.setEditable(false);
-        
-        
+        tblStages.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
         TableColumn tbcStageId = new TableColumn();
         tbcStageId.setCellValueFactory(
@@ -119,37 +120,20 @@ public class PaneStageAdmin extends BorderPane
         
         //aanmaak van Toolbar Met buttons
         ToolBar toolbar = new ToolBar();
-        Button btnKeurGoed = new Button("Keur Goed");
-        btnKeurGoed.setOnAction(new EventHandler<ActionEvent>() {
+        Button btnContract = new Button("Maak Contract");
+        btnContract.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                Email email = new Email();
-                email.KeurGoed(emailadress);
-                Stage stage = (Stage)tblStages.getSelectionModel().getSelectedItem();
-                stage.setStageStatus("Goed gekeurd");
-                Stages stages = new Stages();
-                stages.changeStages(stage);
-                getStages();
+                WordDoc word = new WordDoc();
+                for(Stage s: tblStages.getSelectionModel().getSelectedItems()){
+                    word.Create(s);
+                }
             }
         });
-        Button btnWijsAf = new Button("Keur Af");
-        btnWijsAf.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                String rede = JOptionPane.showInputDialog("Zet Hier de rede voor het afkeuren" ); 
-                Email email = new Email();
-                email.KeurAf(emailadress, rede);
-                Stage stage = (Stage)tblStages.getSelectionModel().getSelectedItem();
-                stage.setStageStatus("Af gekeurd");
-                Stages stages = new Stages();
-                stages.changeStages(stage);
-                getStages();
-            }
-        });
+       
         
-        toolbar.getItems().addAll(btnKeurGoed, btnWijsAf);
+        toolbar.getItems().addAll(btnContract);
         
         this.setBottom(toolbar);
     }

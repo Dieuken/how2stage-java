@@ -36,8 +36,7 @@ public class Bedrijf
     private String bedrijfAdress;
     private String bedrijfEmail;
     private String bedrijfbereikbaarheid;
-    @OneToMany(mappedBy ="b")
-    private List<Stage> stagelist;
+    
 
     public Bedrijf() {
     }
@@ -76,9 +75,7 @@ public class Bedrijf
         return bedrijfbereikbaarheid;
     }
 
-    public List<Stage> getStagelist() {
-        return stagelist;
-    }
+    
 
     public void setBedrijfId(int bedrijfId) {
         this.bedrijfId = bedrijfId;
@@ -104,9 +101,6 @@ public class Bedrijf
         this.bedrijfbereikbaarheid = bedrijfbereikbaarheid;
     }
 
-    public void setStagelist(List<Stage> stagelist) {
-        this.stagelist = stagelist;
-    }
     
 
     

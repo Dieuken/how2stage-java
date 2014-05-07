@@ -39,12 +39,14 @@ public class StagesToevoegen {
         
         
         Stage s = new Stage("programmeur","Het maken en beheren van android applicaties voor het Bedrijf","android developing", e,"Jens Stoltenberg", "pending");
-        
+        Stage a = new Stage("programmeur","Het maken en beheren van ios applicaties voor het Bedrijf","ios developing", e,"Jens Stoltenberg", "pending");
         s.setB(bedrijf1);
+        a.setB(bedrijf1);
         //s.setEffectieveStageBegeleider(stagebegeleider);
         
         Stages stages = new Stages();
         stages.addStages(s);
+        stages.addStages(a);
         
         StageAdministrator sa = new StageAdministrator("stef dieu", "dieuken", "1234");
         StageAdministrators sas = new StageAdministrators();

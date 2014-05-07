@@ -66,6 +66,7 @@ public class Stages
         s.setStageStatus(stage.getStageStatus());
         s.setBeginPeriode(stage.getBeginPeriode());
         s.setEindPeriode(stage.getEindPeriode());
+        s.setEffectieveBegeleider(stage.getEffectieveBegeleider());
         emer.commit();
         emer.sluit();
     }

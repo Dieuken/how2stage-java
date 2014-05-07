@@ -8,6 +8,7 @@ package domein;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -48,7 +49,7 @@ public class Stage {
     @ManyToOne
     private StageBegeleider effectieveBegeleider;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<StageBegeleider> mogelijkeBegeleiderLijst;
 
     

@@ -54,4 +54,11 @@ public class StageBegeleider
     public void setPasswoord(String passwoord) {
         this.passwoord = passwoord;
     }
+
+    @Override
+    public String toString() {
+        return naam;
+    }
+    
+    
 }
