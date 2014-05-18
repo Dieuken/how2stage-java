@@ -6,25 +6,24 @@
 
 package jpa;
 
-
-import domein.StageBegeleider;
+import domein.Student;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Shmoopsy
+ * @author Stef
  */
-public class StageBegeleiders {
+public class Studenten {
     private EMer emer = new EMer();
     
-    public List<StageBegeleider> alleBegeleiders(){
+    public List<Student> alleStudenten(){
         
         emer.begin();
         EntityManager em = emer.getEm();
-        TypedQuery<StageBegeleider> queryFindAll = em.createNamedQuery("StageBegeleider.findAll", StageBegeleider.class);
-        List<StageBegeleider> results = queryFindAll.getResultList();
+        TypedQuery<Student> queryFindAll = em.createNamedQuery("Student.findAll", Student.class);
+        List<Student> results = queryFindAll.getResultList();
         
         emer.commit();
         emer.sluit();
@@ -33,23 +32,23 @@ public class StageBegeleiders {
         
     }
     
-    public StageBegeleider getStageBegeleider(int StageBegeleiderId)
+    public Student getStudent(int StudentId)
     {
         emer.begin();
         EntityManager em = emer.getEm();
-        StageBegeleider stageBegeleider = em.find(StageBegeleider.class, StageBegeleiderId);
+        Student stageBegeleider = em.find(Student.class, StudentId);
         
         emer.commit();
         emer.sluit();
         return stageBegeleider;
     }
     
-    public void addStageBegeleider(StageBegeleider stageBegeleider){
+    public void addStudent(Student student){
         emer.begin();
         EntityManager em = emer.getEm();
        
         
-        em.persist(stageBegeleider);
+        em.persist(student);
         
         emer.commit();
         emer.sluit();

@@ -16,6 +16,7 @@ import javafx.animation.TimelineBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +26,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -44,14 +47,16 @@ public class Root extends BorderPane
     
     public Root(){
         
-        /*StagesToevoegen stagetoevoegen = new StagesToevoegen();
-        stagetoevoegen.Toevoegen();*/
         
         
-        Label lbllogon = new Label("Logon");
-        Label lblpass = new Label("Passwoord");
+        
+        Label lbllogon = new Label("Logon: ");
+        Label lblpass = new Label("Passwoord: ");
         lbluit = new Label();
-        lbluit.setStyle("-fx-text-fill: #f00;");
+        lbluit.setStyle("-fx-text-fill: #FF0000;");
+        lbllogon.setFont(Font.font("Arial", FontWeight.BOLD, 13));
+        lblpass.setFont(Font.font("Arial", FontWeight.BOLD, 13));
+        
         
         logon = new TextField();
         pass = new PasswordField();
@@ -64,6 +69,7 @@ public class Root extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
+                
                 StageAdministrator stageadmin = new StageAdministrator();
                 StageAdminCheck stageAdminCheck = new StageAdminCheck();
                 
@@ -112,10 +118,11 @@ public class Root extends BorderPane
         grid.add(lbluit, 0, 2, 2, 1);
         grid.add(btn, 1, 3);
        
-        
+        grid.setAlignment(Pos.CENTER);
        
         this.setCenter(grid);
-        this.setStyle("-fx-background-image: url('resources/HG.gif');"
+        this.setStyle("-fx-background-color: #3186FD;"
+                     +"-fx-background-image: url('resources/HG.png');"
                      +"-fx-background-size: 280 260; "
                      +"-fx-background-repeat: stretch;"
                      +"-fx-background-position: center center;"

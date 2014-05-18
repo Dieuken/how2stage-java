@@ -7,10 +7,12 @@
 package domein;
 
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -40,6 +42,8 @@ public class Stage {
     private String mentorNaam;
     private String stageStatus;
     private String beginPeriode;
+    private String academiejaar;
+    private String semester;
 
    
     private String eindPeriode;
@@ -52,11 +56,17 @@ public class Stage {
     @OneToMany(fetch = FetchType.EAGER)
     private List<StageBegeleider> mogelijkeBegeleiderLijst;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Stage_EffectieveStudent")
+    private List<Student> effectieveStudent;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Stage_MogelijkeStudent")
+    private List<Student> mogelijkeStudenten;
+
     
 
-    public Bedrijf getB() {
-        return b;
-    }
+    
 
     public Stage() {
     }
@@ -116,6 +126,27 @@ public class Stage {
         return eindPeriode;
     }
     
+    public List<Student> getEffectieveStudent() {
+        return effectieveStudent;
+    }
+
+    public List<Student> getMogelijkeStudenten() {
+        return mogelijkeStudenten;
+    }
+
+    public Bedrijf getB() {
+        return b;
+    }
+
+    public String getAcademiejaar() {
+        return academiejaar;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    
     public void setStagesId(int stagesId) {
         this.stagesId = stagesId;
     }
@@ -148,9 +179,7 @@ public class Stage {
         this.b = b;
     }
 
-    public void setEffectieveStageBegeleider(StageBegeleider effectieveBegeleider) {
-        this.effectieveBegeleider = effectieveBegeleider;
-    }
+    
 
     public void setMogelijkeBegeleiderLijst(List<StageBegeleider> mogelijkeBegeleiderLijst) {
         this.mogelijkeBegeleiderLijst = mogelijkeBegeleiderLijst;
@@ -168,6 +197,20 @@ public class Stage {
         this.effectieveBegeleider = effectieveBegeleider;
     }
     
-    
+    public void setEffectieveStudent(List<Student> effectieveStudent) {
+        this.effectieveStudent = effectieveStudent;
+    }
+
+    public void setMogelijkeStudenten(List<Student> mogelijkeStudenten) {
+        this.mogelijkeStudenten = mogelijkeStudenten;
+    }
+
+    public void setAcademiejaar(String academiejaar) {
+        this.academiejaar = academiejaar;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
     
 }

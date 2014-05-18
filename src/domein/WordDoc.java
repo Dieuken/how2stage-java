@@ -24,14 +24,15 @@ public class WordDoc
         
         
         try {
-              FileChooser fc = new FileChooser();
+              FileChooser fileChooser = new FileChooser();
+              File file = fileChooser.showSaveDialog(null);
               
-              File dir = new File("C:\\Users\\Stef\\Documents\\StageContracten");
+             /* File dir = new File("C:\\Users\\Stef\\Documents\\StageContracten");
               dir.mkdir();
               String naam = JOptionPane.showInputDialog("Geef de naam voor het document" ); ;
               naam = naam + ".txt";
-              //File file = fc.showOpenDialog(stage);
-	      File file = new File(dir, naam);
+
+	      File file = new File(dir, naam);*/
               
 	      if (file.createNewFile()){
 	        System.out.println("File is created!");
@@ -44,7 +45,7 @@ public class WordDoc
                 out.printf("Titel: " + stage.getTitel() + "%n" + "Omschrijving: " + stage.getOmschrijving() +"%n"+"Specialisatie: " + stage.getSpecialisatie());
                 out.close();
 	      };
- 
+                
     	} catch (IOException e) {
 	      e.printStackTrace();
 	}

@@ -9,10 +9,13 @@ package how2stage;
 import domein.Email;
 import domein.Stage;
 import domein.StagesToevoegen;
+import domein.Student;
 import domein.WordDoc;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,28 +60,63 @@ public class PaneStageAdmin extends BorderPane
         TableColumn tbcTitel = new TableColumn("Titel");
         tbcTitel.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("Titel"));
-        TableColumn tbcOmschrijving = new TableColumn("Omschrijving");
-        tbcOmschrijving.setMinWidth(110);
-        tbcOmschrijving.setCellValueFactory(
-                new PropertyValueFactory<Stage, String>("Omschrijving"));
-        tbcOmschrijving.setMinWidth(200);
-        TableColumn tbcSpecialisatie = new TableColumn("Specialisatie");
-        tbcSpecialisatie.setMinWidth(110);
-        tbcSpecialisatie.setCellValueFactory(
-                new PropertyValueFactory<Stage, String>("Specialisatie"));
+        TableColumn tbcStudenten = new TableColumn("studenten");
+        tbcStudenten.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stage, String>, ObservableValue<String>>() {
+
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Stage, String> s) {
+                       
+                        if (s.getValue().getEffectieveStudent().isEmpty()) {
+                            
+                            return new SimpleStringProperty("<Geen studenten>");
+                        } else {
+                            
+                            String namen = new String();
+                            for(Student student : s.getValue().getEffectieveStudent())
+                            {
+                                if(namen.isEmpty())
+                                {
+                                    namen = student.toString();
+                                }
+                                else
+                                {
+                                    namen = namen + ", " + student.toString();
+                                }
+                            }
+                            
+                            return new SimpleStringProperty(namen);
+                        }
+                    }
+                });
+        
+        
+        TableColumn tbcBegeleider = new TableColumn("Begeleider");
+        tbcBegeleider.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Stage, String>, ObservableValue<String>>() {
+
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Stage, String> s) {
+                       
+                        if (s.getValue().getEffectieveBegeleider() == null) {
+                            
+                            return new SimpleStringProperty("<Geen begeleider>");
+                        } else {
+                            
+                           
+                            return new SimpleStringProperty(s.getValue().getEffectieveBegeleider().toString());
+                        }
+                    }
+                });
+        
         TableColumn tbcAantalStudenten = new TableColumn("Aantal Studenten");
         tbcAantalStudenten.setMinWidth(110);
         tbcAantalStudenten.setCellValueFactory(
                 new PropertyValueFactory<Stage, Integer>("aantalStudenten"));
-        TableColumn tbcMentorNaam = new TableColumn("Mentor Naam");
-        tbcMentorNaam.setMinWidth(110);
-        tbcMentorNaam.setCellValueFactory(
-                new PropertyValueFactory<Stage, String>("mentorNaam"));
+        
         TableColumn tbcStatus = new TableColumn("Status");
         tbcStatus.setMinWidth(110);
         tbcStatus.setCellValueFactory(
                 new PropertyValueFactory<Stage, String>("stageStatus"));
-        tblStages.getColumns().addAll(tbcStageId, tbcTitel, tbcOmschrijving, tbcSpecialisatie, tbcAantalStudenten, tbcMentorNaam, tbcStatus);
+        tblStages.getColumns().addAll(tbcStageId, tbcTitel, tbcAantalStudenten, tbcStudenten, tbcBegeleider, tbcStatus);
         
         this.setCenter(tblStages);
         getStages();

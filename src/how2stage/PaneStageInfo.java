@@ -10,6 +10,7 @@ import domein.WordDoc;
 import domein.Email;
 import domein.Stage;
 import domein.StageBegeleider;
+import domein.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -21,8 +22,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceBoxBuilder;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javax.swing.JOptionPane;
@@ -42,7 +48,11 @@ public class PaneStageInfo extends BorderPane
     private Label stageStatus = new Label();
     private Label bedrijfNaam = new Label();
     private Label begeleider = new Label();
+    private Label academiejaar = new Label();
+    private Label semester = new Label();
+    private ListView<Student> student = new ListView<Student>();
     private ChoiceBox<StageBegeleider> begeleiders = new ChoiceBox<StageBegeleider>();
+    private ChoiceBox<Student> studenten = new ChoiceBox<Student>();
                     
     private TextField beginperiode = new TextField();
     private TextField eindperiode = new TextField();
@@ -50,6 +60,7 @@ public class PaneStageInfo extends BorderPane
     private Stage stage;
     private List<Stage> stagelijst = new ArrayList();
     private int index;
+    private ObservableList<Student> stud = FXCollections.observableArrayList();
     
     
     public PaneStageInfo(Stage s)
@@ -73,8 +84,13 @@ public class PaneStageInfo extends BorderPane
         Label lblbedrijfnaam = new Label("Bedrijf Naam");
         Label lblbegeleider = new Label("Begeleider");
         Label lblbegeleiders = new Label("Mogelijke begeleiders");
+        Label lblstudent = new Label("Student");
+        Label lblstudenten = new Label("Mogelijke Studenten");
         Label lblbeginperiode = new Label("Begin Periode");
         Label lbleindperiode = new Label("Eind Periode");
+        Label lblacademiejaar = new Label("AcademieJaar");
+        Label lblsemester = new Label("Semester");
+        
         
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
@@ -98,26 +114,121 @@ public class PaneStageInfo extends BorderPane
         grid.add(begeleider, 1, 7);
         grid.add(lblbegeleiders, 0, 8);
         grid.add(begeleiders, 1 , 8);
-        grid.add(lblbeginperiode, 0, 9);
-        grid.add(beginperiode, 1, 9);
-        grid.add(lbleindperiode, 0, 10);
-        grid.add(eindperiode, 1, 10);
+        grid.add(lblstudent, 0, 9);
+        grid.add(student, 1, 9);
+        grid.add(lblstudenten, 0, 10);
+        grid.add(studenten, 1, 10);
+        grid.add(lblbeginperiode, 0, 11);
+        grid.add(beginperiode, 1, 11);
+        grid.add(lbleindperiode, 0, 12);
+        grid.add(eindperiode, 1, 12);
+        grid.add(lblacademiejaar, 0, 13);
+        grid.add(academiejaar, 1, 13);
+        grid.add(lblsemester, 0, 14);
+        grid.add(semester, 1 , 14);
         
         this.setCenter(grid);
         
+        MenuBar mubMenuBar = new MenuBar();
+        Menu menuNav = new Menu("Navigatie");
+        MenuItem miVorige = new MenuItem("Vorige");
+        miVorige.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Vorige();
+            }
+        });
+        MenuItem miVolgende = new MenuItem("Volgende");
+        miVolgende.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Volgende();
+            }
+        });
+        menuNav.getItems().addAll(miVorige, miVolgende);
+        
+        
+        Menu menuStage = new Menu("Stage");
+        MenuItem miKeurGoed = new MenuItem("Keur Goed");
+        miKeurGoed.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                KeurGoed();
+            }
+        });
+        MenuItem miKeurAf = new MenuItem("Keur Af");
+        miKeurAf.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                KeurAf();
+            }
+        });
+        menuStage.getItems().addAll(miKeurGoed, miKeurAf);
+        
+        
+        Menu menuStudent = new Menu("Student");
+        MenuItem miToevoegen = new MenuItem("Toevoegen");
+        miToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                 StudentToevoegen();
+            }
+        });
+        MenuItem miVerwijder = new MenuItem("Verwijderen");
+        miVerwijder.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                StudentVerwijder();
+            }
+        });
+        menuStudent.getItems().addAll(miToevoegen, miVerwijder);
+        
+         Menu menuBestand = new Menu("Bestand");
+         MenuItem miSave = new MenuItem("Save");
+         miSave.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Save();
+            }
+        });
+        MenuItem miDocument = new MenuItem("StageContract");
+        miDocument.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                  MaakDocument();
+            }
+        });
+        MenuItem miTerug = new MenuItem("Terug");
+        miTerug.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Terug();
+            }
+        });
+        menuBestand.getItems().addAll(miSave, miDocument, miTerug);
+        mubMenuBar.getMenus().addAll(menuBestand, menuNav, menuStage, menuStudent);
+        
+        this.setTop(mubMenuBar);
+        
         ToolBar toolbar = new ToolBar();
+        
         
         Button btnVorige = new Button("Vorige");
         btnVorige.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                
-                if(index >0){
-                    index--;
-                    stage = stagelijst.get(index);
-                    setUp();
-                }
+                Vorige();
+               
             }
         });
         
@@ -126,13 +237,16 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                Email email = new Email();
-                email.KeurGoed(emailadress);
-                
-                stage.setStageStatus("Goed gekeurd");
-                Stages stages = new Stages();
-                stages.changeStages(stage);
-                getStages();
+                KeurGoed();
+            }
+        });
+        
+        Button btnStudentverwijder = new Button("Student Verwijder");
+        btnStudentverwijder.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+               StudentVerwijder();
             }
         });
         
@@ -141,8 +255,7 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                WordDoc doc = new WordDoc();
-                doc.Create(stage);
+                MaakDocument();
             }
         });
         
@@ -151,12 +264,17 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                Stages s = new Stages();
-                stage.setEffectieveBegeleider(begeleiders.getSelectionModel().getSelectedItem());
-                stage.setBeginPeriode(beginperiode.getText());
-                stage.setEindPeriode(eindperiode.getText());
-                s.changeStages(stage);
-                setUp();
+                Save();
+            }
+        });
+        
+        Button btnStudentToevoegen = new Button("Student Toevoegen");
+        btnStudentToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                
+                StudentToevoegen();
             }
         });
         
@@ -165,44 +283,31 @@ public class PaneStageInfo extends BorderPane
             
             @Override
             public void handle(ActionEvent event) {
-                String rede = JOptionPane.showInputDialog("Zet Hier de rede voor het afkeuren" ); 
-                Email email = new Email();
-                email.KeurAf(emailadress, rede);
-                
-                stage.setStageStatus("Af gekeurd");
-                Stages stages = new Stages();
-                stages.changeStages(stage);
-                getStages();
+                KeurAf();
             }
         });
+        
         Button btnVolgende = new Button("Volgende");
         btnVolgende.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                index++;
-                if(stagelijst.size() > index){
-                    
-                    stage = stagelijst.get(index);
-                    System.out.println(stage.getStagesId());
-                    setUp();
-                }
+                Volgende();
             }
         });
+        
         Button btnTerug = new Button("Terug");
         btnTerug.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                PaneStageAdmin psa = new PaneStageAdmin();
-                PaneStageInfo.this.getScene().setRoot(psa);
-                psa.getScene().getWindow().sizeToScene();
                 
+                Terug();
                 
             }
         });
         
-        toolbar.getItems().addAll(btnVorige, btnKeurGoed, btnDoc, btnSave, btnWijsAf, btnVolgende, btnTerug);
+        toolbar.getItems().addAll(btnVorige, btnKeurGoed, btnStudentverwijder, btnDoc, btnSave, btnStudentToevoegen, btnWijsAf, btnVolgende, btnTerug);
         
         this.setBottom(toolbar);
     }
@@ -217,7 +322,7 @@ public class PaneStageInfo extends BorderPane
      
         System.out.println(stage.getStagesId());
         
-        String b;
+     
         
         titel.setText(stage.getTitel());
         omschrijving.setText(stage.getOmschrijving());
@@ -228,6 +333,8 @@ public class PaneStageInfo extends BorderPane
         bedrijfNaam.setText(stage.getB().getBedrijfNaam());
         beginperiode.setText(stage.getBeginPeriode());
         eindperiode.setText(stage.getEindPeriode());
+        semester.setText(stage.getSemester());
+        academiejaar.setText(stage.getAcademiejaar());
        if(stage.getEffectieveBegeleider() == null)
         {
             begeleider.setText("");
@@ -237,9 +344,21 @@ public class PaneStageInfo extends BorderPane
             begeleider.setText(stage.getEffectieveBegeleider().getNaam());
         }
         List<StageBegeleider> stageblijst = stage.getMogelijkeBegeleiderLijst();
-        ObservableList os = FXCollections.observableList(stageblijst);
-        begeleiders.setItems(os);
+        ObservableList bos = FXCollections.observableList(stageblijst);
+        begeleiders.setItems(bos);
+        
+        if(stage.getEffectieveStudent() == null || stage.getEffectieveStudent().size() > stage.getAantalStudenten())
+        {
             
+        }
+        else{
+            ObservableList esos = FXCollections.observableList(stage.getEffectieveStudent());
+            student.setItems(esos);
+        }
+        List<Student> stagestudlijst = stage.getMogelijkeStudenten();
+        ObservableList sos = FXCollections.observableList(stagestudlijst);
+        studenten.setItems(sos);
+        
         
     }
     public void getIndex()
@@ -252,5 +371,99 @@ public class PaneStageInfo extends BorderPane
                 System.out.println(index);
             }
         }
+    }
+    
+    public void Vorige()
+    {
+         if(index >0){
+            index--;
+            stage = stagelijst.get(index);
+            setUp();
+        }
+    }
+    
+    public void Volgende()
+    {
+        index++;
+        if(stagelijst.size() > index){
+
+            stage = stagelijst.get(index);
+            System.out.println(stage.getStagesId());
+            setUp();
+        }
+    }
+    
+    public void KeurGoed()
+    {
+        Email email = new Email();
+        email.KeurGoed(emailadress, stage.getB().getBedrijfContact(), stage.getTitel(), stage.getAcademiejaar());
+
+        stage.setStageStatus("Goed gekeurd");
+        Stages stages = new Stages();
+        stages.changeStages(stage);
+        getStages();
+    }
+    
+    public void KeurAf()
+    {
+        String rede = JOptionPane.showInputDialog("Zet Hier de rede voor het afkeuren" ); 
+                Email email = new Email();
+                email.KeurAf(emailadress, rede,  stage.getB().getBedrijfContact(), stage.getTitel(), stage.getAcademiejaar());
+                
+                stage.setStageStatus("Af gekeurd");
+                Stages stages = new Stages();
+                stages.changeStages(stage);
+                getStages();
+    }
+    
+    public void StudentToevoegen()
+    {
+        
+        if(stud.size() == 0 || stud.size() < stage.getAantalStudenten()){
+
+            stud.add(studenten.getSelectionModel().getSelectedItem());
+            student.setItems(stud);
+        }
+                
+    }
+    
+    public void StudentVerwijder()
+    {
+       int i = student.getSelectionModel().getSelectedIndex();
+       stud.remove(i);
+       student.setItems(stud);  
+    }
+    public void MaakDocument()
+    {
+        WordDoc doc = new WordDoc();
+        doc.Create(stage);
+    }
+    public void Save()
+    {
+        Stages s = new Stages();
+                if(begeleiders.getSelectionModel().getSelectedItem() !=null)
+                {
+                    stage.setEffectieveBegeleider(begeleiders.getSelectionModel().getSelectedItem());
+                }
+                
+                stage.setBeginPeriode(beginperiode.getText());
+                stage.setEindPeriode(eindperiode.getText());
+                List<Student> studentlijst = stage.getEffectieveStudent();
+                
+                for(Student student : stud)
+                {
+                   
+                    studentlijst.add(student);
+                    stage.setEffectieveStudent(studentlijst);
+                }
+                s.changeStages(stage);
+                getStages();
+                setUp();
+    }
+    public void Terug()
+    {
+        PaneStageAdmin psa = new PaneStageAdmin();
+        PaneStageInfo.this.getScene().setRoot(psa);
+        psa.getScene().getWindow().sizeToScene();
     }
 }
