@@ -6,11 +6,15 @@
 
 package how2stage;
 
+
+import com.itextpdf.text.DocumentException;
 import domein.WordDoc;
 import domein.Email;
+import domein.PDF;
 import domein.Stage;
 import domein.StageBegeleider;
 import domein.Student;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -435,8 +439,14 @@ public class PaneStageInfo extends BorderPane
     }
     public void MaakDocument()
     {
-        WordDoc doc = new WordDoc();
-        doc.Create(stage);
+        PDF pdf = new PDF();
+        try{
+        pdf.createPdf(stage);
+        }catch (IOException e) {
+	      e.printStackTrace();
+	}catch (DocumentException d){
+            d.printStackTrace();
+        }
     }
     public void Save()
     {

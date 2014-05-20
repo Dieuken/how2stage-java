@@ -20,6 +20,7 @@ public class StageBegeleider
     @Id
     private String lognaam;
     private String passwoord;
+    private String email;
     
 
     public StageBegeleider() {
@@ -43,6 +44,12 @@ public class StageBegeleider
         return passwoord;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    
+    
     public void setNaam(String naam) {
         this.naam = naam;
     }
@@ -53,6 +60,10 @@ public class StageBegeleider
 
     public void setPasswoord(String passwoord) {
         this.passwoord = passwoord;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

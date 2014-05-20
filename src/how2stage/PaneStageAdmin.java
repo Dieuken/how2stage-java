@@ -7,6 +7,7 @@
 package how2stage;
 
 import domein.Email;
+import domein.PDF;
 import domein.Stage;
 import domein.StagesToevoegen;
 import domein.Student;
@@ -156,24 +157,7 @@ public class PaneStageAdmin extends BorderPane
         
         this.setTop(mubMenuBar);
         
-        //aanmaak van Toolbar Met buttons
-        ToolBar toolbar = new ToolBar();
-        Button btnContract = new Button("Maak Contract");
-        btnContract.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                WordDoc word = new WordDoc();
-                for(Stage s: tblStages.getSelectionModel().getSelectedItems()){
-                    word.Create(s);
-                }
-            }
-        });
-       
         
-        toolbar.getItems().addAll(btnContract);
-        
-        this.setBottom(toolbar);
     }
     public void getStages()
     {

@@ -26,8 +26,9 @@ public class Student
     @Id
     private String lognaam;
     private String passwoord;
+    private String adress;
+    private String geboortedatum;
     
-
     public Student() {
     }
 
@@ -49,6 +50,14 @@ public class Student
         return passwoord;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public String getGeboortedatum() {
+        return geboortedatum;
+    }
+    
     public void setNaam(String naam) {
         this.naam = naam;
     }
@@ -61,6 +70,15 @@ public class Student
         this.passwoord = passwoord;
     }
 
+    
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setGeboortedatum(String geboortedatum) {
+        this.geboortedatum = geboortedatum;
+    }
+    
     @Override
     public String toString() {
         return naam;

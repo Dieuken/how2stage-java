@@ -94,8 +94,7 @@ public class Root extends BorderPane
                 }
                 else{
                     shake();
-                    AudioClip plonkSound = new AudioClip(getClass().getResource("/resources/SadTrombone.wav").toExternalForm());
-                        plonkSound.play();
+                    
                         
                     
                     lbluit.setText("Gebruikersnaam of Paswoord onjuist");
